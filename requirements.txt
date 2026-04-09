@@ -12,3 +12,4 @@ wikipedia
 trustcall
 langgraph-cli[inmem]
 langchain-mistralai
+langchain-google-genai
