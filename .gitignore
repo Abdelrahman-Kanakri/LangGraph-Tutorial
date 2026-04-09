@@ -223,3 +223,8 @@ module-6/deployment/docker-compose.yml
 
 # Claude Settings 
 .claude
+# LangGraph Settings
+.langgraph_api
+
+# state_db
+module-2 /06-chatbot-external-memory/state_db
