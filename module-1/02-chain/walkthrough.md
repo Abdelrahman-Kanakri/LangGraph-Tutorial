@@ -166,6 +166,24 @@ class MessageState(MessagesState):
 
 ## 7. The Chain Graph
 
+> ### Best Practice: Always Use the List Form
+>
+> You'll see two ways to return messages:
+>
+> ```python
+> {"messages": [llm_with_tools.invoke(state["messages"])]}   # ✅ List form
+> {"messages": llm_with_tools.invoke(state["messages"])}     # ❌ Raw form (shortcut)
+> ```
+>
+> **Both work today** because the `add_messages` reducer accepts a single message OR a list. **Always use the list form.** Here's why:
+>
+> - **Unambiguous** — clearly a message list, regardless of how the reducer is configured
+> - **Refactor-safe** — if someone swaps the reducer later (or you add a custom one that only accepts lists), the raw form breaks silently
+> - **Consistent** — the same shape whether you return 1, 2, or N messages
+> - **Testable** — the output type is predictable
+>
+> Rule of thumb: **pick list, forget the distinction exists.** Raw form is fine in throwaway REPL experiments, but never in nodes, tests, or production code.
+
 ```python
 from langgraph.graph import StateGraph, START, END
 

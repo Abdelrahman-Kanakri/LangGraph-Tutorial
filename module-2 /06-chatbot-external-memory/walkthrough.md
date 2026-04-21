@@ -73,7 +73,7 @@ def call_model(state: State):
     else:
         messages = state["messages"]
     response = model.invoke(messages)
-    return {"messages": response}
+    return {"messages": [response]}  # list form
 
 def summarize_conversation(state: State):
     summary = state.get("summary", "")
@@ -98,6 +98,8 @@ def should_continue(state: State) -> Literal["summarize_conversation", END]:
 ```
 
 All identical to the previous notebook — the logic hasn't changed at all.
+
+> **Best practice reminder:** note the list form `{"messages": [response]}` when returning the LLM response. The original notebook uses the raw form (`{"messages": response}`) which works, but the list form is the recommended convention. See [Module 1 / Chain walkthrough](../../module-1/02-chain/walkthrough.md#7-the-chain-graph) for full reasoning.
 
 ### Compile with SqliteSaver
 

@@ -27,7 +27,7 @@ llm_with_tools = llm.bind_tools(tools)
 sys_msg = SystemMessage(content="You are a helpful assistant tasked with performing arithmetic.")
 
 def assistant(state: MessagesState):
-    return {"messages": llm_with_tools.invoke([sys_msg] + state["messages"])}
+    return {"messages": [llm_with_tools.invoke([sys_msg] + state["messages"])]}  # list form
 
 builder = StateGraph(MessagesState)
 builder.add_node("assistant", assistant)
@@ -40,6 +40,8 @@ react_graph = builder.compile()
 ```
 
 Nothing new here — same ReAct loop.
+
+> **Best practice reminder:** note `[llm.invoke(...)]` in the list form. Always wrap messages in a list when returning to state — it's unambiguous and refactor-safe. See [Module 1 / Chain walkthrough](../02-chain/walkthrough.md#7-the-chain-graph) for full reasoning.
 
 ---
 

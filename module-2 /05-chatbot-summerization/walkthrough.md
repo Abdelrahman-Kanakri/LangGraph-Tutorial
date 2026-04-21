@@ -50,7 +50,7 @@ def call_model(state: State):
         messages = state["messages"]
 
     response = llm.invoke(messages)
-    return {"messages": response}
+    return {"messages": [response]}  # list form
 ```
 
 **Line-by-line:**
@@ -59,6 +59,8 @@ def call_model(state: State):
 - If no summary, just use the messages as-is
 - The LLM sees: `[SystemMessage(summary), ...recent_messages]`
 - The summary is NOT in `state["messages"]` — it's prepended only at invoke time (same pattern as the system message in Module 1's agent)
+
+> **Best practice reminder:** return the LLM response in a list — `{"messages": [response]}`. The original notebook writes `{"messages": response}` which works (because `add_messages` accepts both), but the list form is the recommended convention. See [Module 1 / Chain walkthrough](../../module-1/02-chain/walkthrough.md#7-the-chain-graph) for full reasoning.
 
 ---
 

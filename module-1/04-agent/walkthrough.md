@@ -68,8 +68,10 @@ from langgraph.graph import MessagesState
 sys_msg = SystemMessage(content="You are a helpful assistant tasked with performing arithmetic on a set of inputs.")
 
 def assistant(state: MessagesState) -> MessagesState:
-    return {"messages": llm_with_tools.invoke([sys_msg] + state["messages"])}
+    return {"messages": [llm_with_tools.invoke([sys_msg] + state["messages"])]}
 ```
+
+> **Best practice:** always wrap the LLM response in a list — `[llm.invoke(...)]`. Both the raw form and list form work with `add_messages`, but the list form is unambiguous and refactor-safe. See [Module 1 / Chain walkthrough](../02-chain/walkthrough.md#7-the-chain-graph) for full reasoning.
 
 **Line-by-line:**
 - `SystemMessage` — instructions that guide the model's behavior. Here: "you do arithmetic."

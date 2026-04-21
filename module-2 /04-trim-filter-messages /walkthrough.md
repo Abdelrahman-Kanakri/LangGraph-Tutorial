@@ -31,7 +31,7 @@ from langgraph.graph import MessagesState, StateGraph, START, END
 llm = ChatMistralAI(model="mistral-medium-latest", temperature=0)
 
 def chat_model_node(state: MessagesState):
-    return {"messages": llm.invoke(state["messages"])}
+    return {"messages": [llm.invoke(state["messages"])]}  # list form — always
 
 builder = StateGraph(MessagesState)
 builder.add_node("chat_model", chat_model_node)
@@ -41,6 +41,8 @@ graph = builder.compile()
 ```
 
 A minimal graph: messages in → LLM → response appended to messages.
+
+> **Best practice:** always wrap the LLM response in a list when returning — `[llm.invoke(...)]`. Unambiguous and refactor-safe. See [Module 1 / Chain walkthrough](../../module-1/02-chain/walkthrough.md#7-the-chain-graph) for full reasoning.
 
 ---
 

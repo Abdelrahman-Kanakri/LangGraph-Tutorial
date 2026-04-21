@@ -111,9 +111,11 @@ async for chunk in client.runs.stream(
 - `client.runs.stream(...)` — starts a run on the server and streams results back
 - `thread["thread_id"]` — which conversation thread to use
 - `"agent"` — the `graph_id` to run (matches what's in `langgraph.json`)
-- `input=input` — the messages to send
+- `input=input` — the messages to send (note the **list form**: `[HumanMessage(...)]`)
 - `stream_mode="values"` — stream the **full state** after each step (not just deltas)
 - `chunk.data["messages"][-1]` — the latest message in the state at each step
+
+> **Best practice:** even when sending a single message to the graph, wrap it in a list — `{"messages": [HumanMessage(...)]}` not `{"messages": HumanMessage(...)}`. It's unambiguous and refactor-safe. See [Module 1 / Chain walkthrough](../02-chain/walkthrough.md#7-the-chain-graph) for the full reasoning.
 
 **Output shows each step:**
 ```

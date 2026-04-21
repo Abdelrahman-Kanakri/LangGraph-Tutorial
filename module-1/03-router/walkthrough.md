@@ -68,8 +68,10 @@ def tool_calling_llm(state: MessagesState):
 
 - Reads all messages from state
 - Sends them to the LLM (which may or may not return a tool call)
-- Wraps the `AIMessage` response in a list and returns it
+- Wraps the `AIMessage` response in a **list** and returns it
 - The `add_messages` reducer (built into `MessagesState`) appends it to the conversation
+
+> **Best practice:** always wrap messages in a list — `[llm.invoke(...)]` not `llm.invoke(...)`. Both work because `add_messages` is permissive, but the list form is unambiguous and refactor-safe. See [Module 1 / Chain walkthrough](../02-chain/walkthrough.md#7-the-chain-graph) for full reasoning.
 
 ---
 

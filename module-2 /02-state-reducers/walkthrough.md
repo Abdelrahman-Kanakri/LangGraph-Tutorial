@@ -266,6 +266,41 @@ add_messages(messages, to_delete)
 
 ---
 
+---
+
+## Best Practice: Always Return Messages in a List
+
+The `add_messages` reducer is flexible — it accepts both a single message and a list. But you should **always use the list form** when returning from a node:
+
+```python
+# ✅ List form — always use this
+return {"messages": [llm.invoke(state["messages"])]}
+
+# ❌ Raw form — works today, but fragile
+return {"messages": llm.invoke(state["messages"])}
+```
+
+**Why?**
+
+- **Unambiguous** — clearly signals "this is a message list" regardless of reducer config
+- **Refactor-safe** — swapping in a custom reducer that only takes lists won't silently break your node
+- **Consistent** — same shape whether you return 1 message or 10
+- **Predictable** — easier to test, type-check, and reason about
+
+**Rule of thumb:** Pick list, forget the distinction exists. The raw form is fine in throwaway REPL experiments, but never in nodes, tests, or production code.
+
+This applies the same way to graph inputs:
+
+```python
+# ✅
+graph.invoke({"messages": [HumanMessage("Hello")]})
+
+# ❌ (works, but habit worth avoiding)
+graph.invoke({"messages": HumanMessage("Hello")})
+```
+
+---
+
 ## Summary: Reducer Cheat Sheet
 
 | Reducer | Type | Behavior |

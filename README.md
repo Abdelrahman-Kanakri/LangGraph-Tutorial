@@ -13,6 +13,7 @@ A hands-on, notebook-by-notebook walkthrough of [LangGraph](https://github.com/l
 - [Module 0 - Basics](#module-0---basics)
 - [Module 1 - Simple Graphs to Agents](#module-1---simple-graphs-to-agents)
 - [Module 2 - State and Memory](#module-2---state-and-memory)
+- [Module 3 - Human-in-the-Loop](#module-3---human-in-the-loop-in-progress)
 - [Key Concepts at a Glance](#key-concepts-at-a-glance)
 - [Running LangGraph Studio](#running-langgraph-studio)
 - [Project Structure](#project-structure)
@@ -94,18 +95,28 @@ Deep dive into state schemas, reducers, message management, and building a produ
 
 ---
 
+## Module 3 - Human-in-the-Loop (In Progress)
+
+Building blocks for streaming, interrupting, and editing graph execution — enabling approval, debugging, and human feedback workflows.
+
+| # | Notebook | Walkthrough | Topics |
+|---|----------|-------------|--------|
+| 1 | [streaming-interruption.ipynb](module-3/01-streaming-interruption/streaming-interruption.ipynb) | [walkthrough.md](module-3/01-streaming-interruption/walkthrough.md) | `stream_mode` values/updates, `astream_events`, token-by-token streaming, SDK streaming |
+| 2 | [breakpoints.ipynb](module-3/02-breakpoints/breakpoints.ipynb) | [walkthrough.md](module-3/02-breakpoints/walkthrough.md) | `interrupt_before`, `graph.get_state()`, resuming with `None`, human approval pattern |
+
+> More notebooks coming soon: edit state / human feedback, dynamic breakpoints, time travel.
+
+---
+
 ## Key Concepts at a Glance
 
 ### The Progression
 
-```
-Module 0          Module 1                                           Module 2
-────────    ─────────────────────────────────────    ──────────────────────────────────────────
-Basics  →   Simple Graph → Chain → Router → Agent    State Schema → Reducers → Multiple Schemas
-              │              │       │        │      → Trim/Filter → Summarization → External DB
-           TypedDict     Messages ToolNode  ReAct
-           + Nodes       + LLM    + Cond.   Loop
-           + Edges       + Tools   Edge    + Memory
+```text
+Module 0       Module 1                                Module 2                                   Module 3
+────────    ─────────────────────────────────    ──────────────────────────────────────────    ─────────────────────────
+Basics  →   Simple Graph → Chain → Router →      State Schema → Reducers → Multiple Schemas     Streaming → Breakpoints
+              Agent → Agent Memory → Deploy      → Trim/Filter → Summarization → External DB    → Human-in-the-loop...
 ```
 
 ### When to Use What
@@ -119,6 +130,31 @@ Basics  →   Simple Graph → Chain → Router → Agent    State Schema → Re
 | Persistent conversations | Agent + Memory |
 | Long conversations (token management) | Trim / Filter / Summarize |
 | Production deployment | SqliteSaver + LangGraph Studio |
+
+### Best Practice: Always Use the List Form for Messages
+
+When reading from or writing to message state, always wrap messages in a list — even when there's only one:
+
+```python
+# ✅ List form — use everywhere
+{"messages": [llm_with_tools.invoke([sys_msg] + state["messages"])]}
+graph.invoke({"messages": [HumanMessage("What is 5 * 3?")]})
+
+# ❌ Raw form — works today, but fragile
+{"messages": llm_with_tools.invoke([sys_msg] + state["messages"])}
+graph.invoke({"messages": HumanMessage("What is 5 * 3?")})
+```
+
+**Why?**
+
+- **Unambiguous** — it's clearly a message list regardless of reducer config
+- **Refactor-safe** — if someone swaps in a stricter reducer, the raw form breaks silently
+- **Consistent** — same shape whether you return 1 or N messages
+- **Testable** — predictable output type
+
+The raw form only works because `add_messages` is permissive. Use it only for throwaway REPL experiments. **Rule of thumb: pick list, forget the distinction exists.**
+
+---
 
 ### State Schema Decision Guide
 
@@ -194,6 +230,13 @@ LangGraph-Tutorial/
 │   │   ├── chatbot-external-memory.ipynb
 │   │   └── walkthrough.md
 │   └── studio/
+├── module-3/  (in progress)
+│   ├── 01-streaming-interruption/
+│   │   ├── streaming-interruption.ipynb
+│   │   └── walkthrough.md
+│   └── 02-breakpoints/
+│       ├── breakpoints.ipynb
+│       └── walkthrough.md
 ├── academy_notebooks/            # Original LangChain Academy reference (modules 2-6)
 ├── requirements.txt
 └── langgraph.json
