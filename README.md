@@ -10,10 +10,11 @@ A hands-on, notebook-by-notebook walkthrough of [LangGraph](https://github.com/l
 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
+- [Quick Reference](#quick-reference)
 - [Module 0 - Basics](#module-0---basics)
 - [Module 1 - Simple Graphs to Agents](#module-1---simple-graphs-to-agents)
 - [Module 2 - State and Memory](#module-2---state-and-memory)
-- [Module 3 - Human-in-the-Loop](#module-3---human-in-the-loop-in-progress)
+- [Module 3 - Human-in-the-Loop](#module-3---human-in-the-loop)
 - [Key Concepts at a Glance](#key-concepts-at-a-glance)
 - [Running LangGraph Studio](#running-langgraph-studio)
 - [Project Structure](#project-structure)
@@ -52,6 +53,19 @@ pip install -r requirements.txt
 pip install -U "langgraph-cli[inmem]"
 langgraph dev  # run inside any module's /studio directory
 ```
+
+---
+
+## Quick Reference
+
+For fast lookup without opening the notebooks, the [`docs/`](docs/README.md) folder contains one-page summaries of every notebook — what it teaches, the key APIs, and when to use it:
+
+- [Module 0 — Basics](docs/module-0-basics.md)
+- [Module 1 — From Simple Graphs to Deployed Agents](docs/module-1-graphs-to-agents.md)
+- [Module 2 — State and Memory](docs/module-2-state-and-memory.md)
+- [Module 3 — Human-in-the-Loop](docs/module-3-human-in-the-loop.md)
+
+For the full line-by-line explanation of any notebook, open its `walkthrough.md` next to the `.ipynb` file.
 
 ---
 
@@ -95,7 +109,7 @@ Deep dive into state schemas, reducers, message management, and building a produ
 
 ---
 
-## Module 3 - Human-in-the-Loop (In Progress)
+## Module 3 - Human-in-the-Loop
 
 Building blocks for streaming, interrupting, and editing graph execution — enabling approval, debugging, and human feedback workflows.
 
@@ -103,8 +117,9 @@ Building blocks for streaming, interrupting, and editing graph execution — ena
 |---|----------|-------------|--------|
 | 1 | [streaming-interruption.ipynb](module-3/01-streaming-interruption/streaming-interruption.ipynb) | [walkthrough.md](module-3/01-streaming-interruption/walkthrough.md) | `stream_mode` values/updates, `astream_events`, token-by-token streaming, SDK streaming |
 | 2 | [breakpoints.ipynb](module-3/02-breakpoints/breakpoints.ipynb) | [walkthrough.md](module-3/02-breakpoints/walkthrough.md) | `interrupt_before`, `graph.get_state()`, resuming with `None`, human approval pattern |
-
-> More notebooks coming soon: edit state / human feedback, dynamic breakpoints, time travel.
+| 3 | [edit-state-human-feedback.ipynb](module-3/03-edit-state-human-feedback/edit-state-human-feedback.ipynb) | [walkthrough.md](module-3/03-edit-state-human-feedback/walkthrough.md) | `graph.update_state()`, `add_messages` append vs overwrite by id, `human_feedback` placeholder node, `as_node=` |
+| 4 | [dynamic-breakpoints.ipynb](module-3/04-dynamic-breakpoints/dynamic-breakpoints.ipynb) | [walkthrough.md](module-3/04-dynamic-breakpoints/walkthrough.md) | `NodeInterrupt`, conditional interrupts from inside a node, `state.tasks[*].interrupts`, fixing state to resume |
+| 5 | [time-travel.ipynb](module-3/05-time-travel/time-travel.ipynb) | [walkthrough.md](module-3/05-time-travel/walkthrough.md) | `get_state_history`, replaying via `checkpoint_id`, forking with `update_state`, SDK `threads.get_history` |
 
 ---
 
@@ -230,13 +245,28 @@ LangGraph-Tutorial/
 │   │   ├── chatbot-external-memory.ipynb
 │   │   └── walkthrough.md
 │   └── studio/
-├── module-3/  (in progress)
+├── module-3/
 │   ├── 01-streaming-interruption/
 │   │   ├── streaming-interruption.ipynb
 │   │   └── walkthrough.md
-│   └── 02-breakpoints/
-│       ├── breakpoints.ipynb
+│   ├── 02-breakpoints/
+│   │   ├── breakpoints.ipynb
+│   │   └── walkthrough.md
+│   ├── 03-edit-state-human-feedback/
+│   │   ├── edit-state-human-feedback.ipynb
+│   │   └── walkthrough.md
+│   ├── 04-dynamic-breakpoints/
+│   │   ├── dynamic-breakpoints.ipynb
+│   │   └── walkthrough.md
+│   └── 05-time-travel/
+│       ├── time-travel.ipynb
 │       └── walkthrough.md
+├── docs/                         # Quick reference: one-page briefs per notebook
+│   ├── README.md
+│   ├── module-0-basics.md
+│   ├── module-1-graphs-to-agents.md
+│   ├── module-2-state-and-memory.md
+│   └── module-3-human-in-the-loop.md
 ├── academy_notebooks/            # Original LangChain Academy reference (modules 2-6)
 ├── requirements.txt
 └── langgraph.json
