@@ -1,4 +1,6 @@
 langgraph
+langgraph-prebuilt
+langgraph-cli[inmem]
 langchain-core
-langchain-community
 langchain-mistralai
+python-dotenv

@@ -1,0 +1,12 @@
+langgraph
+langgraph-prebuilt
+langgraph-sdk
+langgraph-checkpoint-sqlite
+langgraph-cli[inmem]
+langsmith
+langchain-core
+langchain-community
+langchain-mistralai
+langchain-tavily
+wikipedia
+pydantic

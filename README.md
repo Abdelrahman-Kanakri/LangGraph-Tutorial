@@ -29,6 +29,7 @@ A hands-on, notebook-by-notebook walkthrough of [LangGraph](https://github.com/l
 - API keys:
   - `MISTRAL_API_KEY` (or `OPENAI_API_KEY` if you swap models)
   - `TAVILY_API_KEY` (for search tools — used in later modules)
+  - `EMAIL_ADDRESS` (used as the contact in the Wikipedia API `User-Agent` — required by [Wikipedia's policy](https://meta.wikimedia.org/wiki/User-Agent_policy); only the Module 4 research assistant currently hits Wikipedia)
   - `LANGSMITH_API_KEY` (optional, for tracing & deployment)
 
 ## Installation
