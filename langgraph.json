@@ -3,5 +3,6 @@
   "graphs": {
     "my_agent": "./agent.py:graph"
   },
-  "env": ".env"
+  "env": ".env",
+  "python_version": "3.12"
 }

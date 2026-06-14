@@ -9,6 +9,8 @@ One-page summaries of every notebook in this tutorial — what it teaches, the c
 | 2 | State schemas, reducers, and memory patterns | [module-2-state-and-memory.md](module-2-state-and-memory.md) |
 | 3 | Streaming, breakpoints, and human-in-the-loop | [module-3-human-in-the-loop.md](module-3-human-in-the-loop.md) |
 | 4 | Parallelization, sub-graphs, and reducers | [module-4-controllability.md](module-4-controllability.md) |
+| 5 | Long-term memory: store, schemas, and memory agent | [module-5-long-term-memory.md](module-5-long-term-memory.md) |
+| 6 | Production deployment, SDK, double texting, assistants | [module-6-deployment.md](module-6-deployment.md) |
 
 Each module file follows the same shape per notebook:
 

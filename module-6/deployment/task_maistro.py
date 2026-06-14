@@ -11,7 +11,7 @@ from langchain_core.runnables import RunnableConfig
 from langchain_core.messages import merge_message_runs
 from langchain_core.messages import SystemMessage, HumanMessage
 
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import StateGraph, MessagesState, START, END
@@ -114,6 +114,7 @@ class Profile(BaseModel):
 
 # ToDo schema
 class ToDo(BaseModel):
+    """"This is a task list that the user wants to complete"""
     task: str = Field(description="The task to be completed.")
     time_to_complete: Optional[int] = Field(description="Estimated time to complete the task (minutes).")
     deadline: Optional[datetime] = Field(
@@ -123,7 +124,7 @@ class ToDo(BaseModel):
     solutions: list[str] = Field(
         description="List of specific, actionable solutions (e.g., specific ideas, service providers, or concrete options relevant to completing the task)",
         min_items=1,
-        default_factory=list
+        default_factory=list,
     )
     status: Literal["not started", "in progress", "done", "archived"] = Field(
         description="Current status of the task",
@@ -138,7 +139,7 @@ class UpdateMemory(TypedDict):
     update_type: Literal['user', 'todo', 'instructions']
 
 # Initialize the model
-model = ChatOpenAI(model="gpt-4o", temperature=0)
+model = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
 
 ## Create the Trustcall extractors for updating the user profile and ToDo list
 profile_extractor = create_extractor(
@@ -309,9 +310,9 @@ def update_todos(state: MessagesState, config: RunnableConfig, store: BaseStore)
     # Format the existing memories for the Trustcall extractor
     tool_name = "ToDo"
     existing_memories = ([(existing_item.key, tool_name, existing_item.value)
-                          for existing_item in existing_items]
-                          if existing_items
-                          else None
+                            for existing_item in existing_items]
+                            if existing_items
+                            else None
                         )
 
     # Merge the chat history and the instruction
@@ -331,13 +332,13 @@ def update_todos(state: MessagesState, config: RunnableConfig, store: BaseStore)
 
     # Invoke the extractor
     result = todo_extractor.invoke({"messages": updated_messages, 
-                                         "existing": existing_memories})
+                                    "existing": existing_memories})
 
     # Save save the memories from Trustcall to the store
     for r, rmeta in zip(result["responses"], result["response_metadata"]):
         store.put(namespace,
-                  rmeta.get("json_doc_id", str(uuid.uuid4())),
-                  r.model_dump(mode="json"),
+                rmeta.get("json_doc_id", str(uuid.uuid4())),
+                r.model_dump(mode="json"),
             )
         
     # Respond to the tool call made in task_mAIstro, confirming the update    

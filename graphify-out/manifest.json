@@ -55,10 +55,6 @@
     "mtime": 1781089250.7868667,
     "hash": "dc604e25c5d14c2dcee0731c1a81306c"
   },
-  "/home/abood/Documents/Obsidian Vault/Claude-Brain/Project - lab.md": {
-    "mtime": 1781089352.8395524,
-    "hash": "cd78c954b01f692b09bd2308cf039e8b"
-  },
   "/home/abood/Documents/Obsidian Vault/Claude-Brain/Project - Student Car Plate Detection.md": {
     "mtime": 1781089299.1251917,
     "hash": "f83234939909d40024f4defd520fd875"
@@ -67,9 +63,45 @@
     "mtime": 1781089932.3774285,
     "hash": "e5f6ab680e95ea8e73ac4de10aeffe1f"
   },
+  "/home/abood/Documents/Obsidian Vault/Claude-Brain/Project - lab.md": {
+    "mtime": 1781090203.6182272,
+    "hash": "d806cba5644420949588dda02c47232c"
+  },
+  "/home/abood/Documents/Obsidian Vault/Claude-Brain/auto-brain-save-hook.md": {
+    "mtime": 1781090273.9876938,
+    "hash": "62925aefee26d67bac38baf2a0f25285"
+  },
+  "/home/abood/Documents/Obsidian Vault/Claude-Brain/graphify-usage-economics-and-hooks.md": {
+    "mtime": 1781113536.6100042,
+    "hash": "6f39e025066a031ac0ab1835034fa771"
+  },
+  "/home/abood/Documents/Obsidian Vault/Claude-Brain/flatpak-gui-desktop-shortcut.md": {
+    "mtime": 1781273151.7493668,
+    "hash": "646212fb55be5b68bbb8e0e78bc5b5c3"
+  },
+  "/home/abood/Documents/Obsidian Vault/Claude-Brain/flatpak-vscode-no-host-docker.md": {
+    "mtime": 1781333856.879676,
+    "hash": "a765abdbcc962305c1b41a014437a05f"
+  },
+  "/home/abood/Documents/Obsidian Vault/Claude-Brain/langgraph-local-deploy-workflow.md": {
+    "mtime": 1781339320.9275842,
+    "hash": "f87c7436199b36e4e595a8e80d501a00"
+  },
+  "/home/abood/Documents/Obsidian Vault/Claude-Brain/langgraph-deployment-build-and-run-session.md": {
+    "mtime": 1781342423.2509482,
+    "hash": "92e4ae5797eae477fd567493cfe13dab"
+  },
+  "/home/abood/Documents/Obsidian Vault/Claude-Brain/pylance-errors-in-jupyter-notebooks.md": {
+    "mtime": 1781344358.2754521,
+    "hash": "99474c415c64f187ffaef42dcf1ca846"
+  },
   "/home/abood/Documents/Obsidian Vault/Claude-Brain/MEMORY.md": {
-    "mtime": 1781089943.2005005,
-    "hash": "b1bdc47c2b3cbcb392bdc3a3da1ce0dc"
+    "mtime": 1781344365.5365,
+    "hash": "d305fc2c9e9596f121c286392b9fe20c"
+  },
+  "/home/abood/Documents/Obsidian Vault/Claude-Brain/langgraph-tutorial-module6-and-readme.md": {
+    "mtime": 1781409517.5908654,
+    "hash": "3d41e0e5ab909a0f4ad4d21aeeceeb09"
   },
   "/home/abood/Documents/Obsidian Vault/Claude-Brain/graphify-out/memory/query_20260605_141709_how_to_build_the_graph_using_the_subscription_inst.md": {
     "mtime": 1780669029.862959,

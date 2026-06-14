@@ -3,7 +3,8 @@
     "graphs": {
       "task_maistro": "./task_maistro.py:graph"
     },
-    "python_version": "3.11",
+    "env": "../../.env",
+    "python_version": "3.12",
     "dependencies": [
       "."
     ]

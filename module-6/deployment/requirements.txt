@@ -3,3 +3,5 @@ langchain-core
 langchain-community
 langchain-openai
 trustcall
+langchain-groq
+langchain-mistralai
